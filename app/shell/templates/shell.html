@@ -1,0 +1,18 @@
+<div class="navbar navbar-default navbar-static-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="javascript:;">My App</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a href="javascript:;" ui-sref="shell.home">Home</a>
+        </li>
+        <li><a href="javascript:;" ui-sref="shell.help">Help</a>
+        </li>
+    </ul>
+</div>
+
+<div id="content" class="container-fluid">
+    <div ui-view="contentView">
+        <!-- Content goes here -->
+    </div>
+    <pre dir="ltr">{{vm|json}}</pre>
+</div>
