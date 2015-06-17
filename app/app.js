@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('app', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'angular-loading-bar', 'shell', 'home', 'help', 'common']);
+    angular.module('app', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'angular-loading-bar', 'btford.socket-io', 'shell', 'home', 'help', 'common']);
 
     // CONFIG: App (module)
     angular
@@ -28,6 +28,17 @@
                     this.$apply(fn);
                 }
             };
+
+        });
+
+    // VALUES
+    angular
+        .module('app')
+        .value('nickName', 'anonymous')
+        .value('messageFormatter', function (date, nick, message) {
+            return date.toLocaleTimeString() + ' - ' +
+                nick + ' - ' +
+                message + '\n';
 
         });
 

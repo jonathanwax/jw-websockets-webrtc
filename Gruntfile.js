@@ -61,7 +61,7 @@ module.exports = function (grunt) {
                 },
                 proxies: [
                         {
-                            context: '/api/',
+                            context: '/api',
                             host: 'localhost',
                             port: 3000,
                             https: false
@@ -73,6 +73,13 @@ module.exports = function (grunt) {
                                 //headers: {
                                 //    "x-custom-added-header": value
                                 //}
+                        },
+                        {
+                            context: '/socket.io',
+                            host: 'localhost',
+                            port: 3000,
+                            https: false,
+                            xforward: true
                     }
                 ]
                     //                options: {
