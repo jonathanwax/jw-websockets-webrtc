@@ -2,18 +2,18 @@
     'use strict';
 
     // define globals
-    var express = require('express'),
-        ioapp = require('socket.io'),
-        http = require('http'),
-        app = express(),
-        server = http.createServer(app),
-        io = ioapp.listen(server),
-        path = require('path'),
-        favicon = require('serve-favicon'),
-        logger = require('morgan'),
-        cookieParser = require('cookie-parser'),
-        bodyParser = require('body-parser');
-
+    var express = require('express');
+    var ioapp = require('socket.io');
+    var http = require('http');
+    var app = express();
+    var server = http.createServer(app);
+    var io = ioapp.listen(server);
+    var path = require('path');
+    var favicon = require('serve-favicon');
+    var logger = require('morgan');
+    var cookieParser = require('cookie-parser');
+    var bodyParser = require('body-parser');
+    var peerServer = require('peer').ExpressPeerServer;
 
     // set up our JSON API for later
     require('./routes/api')(app);
@@ -26,12 +26,12 @@
     console.log('server.listen(3000)');
 
     // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
-    app.all('*', function (req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        res.header('Access-Control-Allow-Headers', 'Content-Type');
-        next();
-    });
+    // app.all('*', function (req, res, next) {
+    //     res.header("Access-Control-Allow-Origin", "*");
+    //     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    //     res.header('Access-Control-Allow-Headers', 'Content-Type');
+    //     next();
+    // });
 
     // view engine setup (for later)
     //app.set('views', path.join(__dirname, 'views'));
@@ -54,6 +54,13 @@
     // and uncomment the line below
 
     //app.use(express.static(__dirname +  '/public'));
+    
+    // init peerjs server
+    var peerOptions = {
+        debug: true
+    };
+    app.use('/peerjs', peerServer(server, peerOptions));
+    console.log('peer server started.');
 
     /// catch 404 and forwarding to error handler
     app.use(function (req, res, next) {
